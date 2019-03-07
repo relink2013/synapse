@@ -161,6 +161,24 @@ enable_group_creation: true
 trusted_third_party_id_servers:
     - matrix.org
     - vector.im
+    
+{% if SYNAPSE_AUTO_JOIN_ROOM %}
+# Users who register on this homeserver will automatically be joined
+# to these rooms
+#
+auto_join_rooms:
+  - "{{ SYNAPSE_AUTO_JOIN_ROOM }}"
+{% else %}
+
+{% endif %}
+
+# Where auto_join_rooms are specified, setting this flag ensures that the
+# the rooms exist by creating them when the first user on the
+# homeserver registers.
+# Setting to false means that if the rooms are not manually created,
+# users cannot be auto-joined since they do not exist.
+#
+autocreate_auto_join_rooms: {{ SYNAPSE_AUTOCREATE_AUTO_JOIN_ROOM or "False" }}
 
 ## Metrics ###
 
